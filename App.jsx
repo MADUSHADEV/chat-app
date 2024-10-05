@@ -1,15 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import SignInButton from "./components/SignInButton";
+import Button from "./ui/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SignUpButton from "./components/SignUpButton";
 
 const screen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
-        <SignInButton />
-        <SignUpButton />
+        <Button />
       </View>
     </SafeAreaView>
   );
@@ -30,7 +28,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
     flexDirection: "row",
-    alignContent:"space-between"
+    alignContent: "space-between",
   },
 });
 
