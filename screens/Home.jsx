@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import MessageSendBox from "../components/MessageSendBox";
 import LeftChat from "../ui/LeftChat";
 import RightChat from "../ui/RightChat";
@@ -19,23 +19,30 @@ const Home = () => {
         <Ionicons
           style={styles.icon}
           name="arrow-back"
-          size={styles.iconSize}
-          color="#000"
+          size={THEME.fontSize1}
+          color="#fff"
         />
         <Text style={styles.title}>Home</Text>
-        <Avatar />
+        <Avatar
+          uri="https://picsum.photos/200/300"
+          type="status"
+          status="active"
+        />
       </View>
       <View style={styles.profiles}>
-        <ScrollView style={{ padding: 10 }} horizontal={true}>
-          {TestData.filter((item) => item.status === "active").map(
-            (item, index) => (
-              <Avatar status={item.status} type="status" uri={item.avatarUri} />
-            )
+        <FlatList
+          style={{ padding: 10 }}
+          horizontal={true}
+          data={TestData.filter((item) => item.status === "active")}
+          renderItem={({ item }) => (
+            <Avatar status={item.status} type="status" uri={item.avatarUri} />
           )}
-        </ScrollView>
+        />
       </View>
-      <ScrollView style={styles.scrollView}>
-        {TestData.map((item, index) => (
+      <FlatList
+        style={styles.scrollView}
+        data={TestData}
+        renderItem={({ item, index }) => (
           <ChatPreview
             key={index}
             avatar={{ uri: item.avatarUri, status: item.status }}
@@ -44,8 +51,8 @@ const Home = () => {
             username={item.username}
             lastseen={item.lastseen}
           />
-        ))}
-      </ScrollView>
+        )}
+      />
     </View>
   );
 };
