@@ -2,11 +2,10 @@ import { Image, StyleSheet, TextInput, View } from "react-native";
 
 const BoxInput = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.containerInput}>
       <TextInput
         style={styles.inputStyle}
         placeholder="Write your message"
-        rightIcon={{ type: "font-awesome", name: "file", color: "#797C7B" }}
       />
       <Image
         source={require("../assets/icons/Vector.png")}
@@ -18,7 +17,7 @@ const BoxInput = () => {
 
 //styles
 const styles = StyleSheet.create({
-  container: {
+  containerInput: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     padding: 8,
     backgroundColor: "#F3F6F6",
-    width: 230,
+    width: "90%",
   },
   icon: {
     width: 24,
