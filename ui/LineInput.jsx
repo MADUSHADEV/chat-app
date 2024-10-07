@@ -2,7 +2,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { STYLES, THEME } from "../constants/constants";
 import { useEffect, useState } from "react";
 
-const LineInput = ({ inputLabel, placeholder, onChange }) => {
+const LineInput = ({ inputLabel, placeholder, onChange, secureTextEntry=false }) => {
   let [input, setInput] = useState("");
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const LineInput = ({ inputLabel, placeholder, onChange }) => {
     <View style={styles.inputField}>
       <Text style={styles.label}>{inputLabel}</Text>
       <TextInput
+        secureTextEntry={secureTextEntry}
         onChangeText={(text) => setInput(text)}
         style={styles.input}
         value={input}
