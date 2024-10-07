@@ -29,8 +29,14 @@ const styles = StyleSheet.create({
     alignContent: "space-between",
     backgroundColor: "#FFFFFF",
     padding: 20,
-    borderTopColor: "#EEFAF8",
-    borderTopWidth: 2,
+    borderTopColor: "#E5E5E5",
+    borderTopWidth: 1,
+    shadowColor: "#000",
+
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.05,
+    shadowRadius: 0,
+    elevation: 2,
   },
   PathView: {
     backgroundColor: "Red",

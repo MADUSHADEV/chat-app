@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   userName: {
     color: "black",
     fontWeight: "semibold",
-    fontSize: 20,
+    fontSize: 17,
     paddingBottom: 5,
   },
   messages: {
