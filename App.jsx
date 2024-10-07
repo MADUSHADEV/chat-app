@@ -6,24 +6,15 @@ import LineInput from "./ui/LineInput";
 import { BUTTON } from "./constants/constants";
 import BoxInput from "./ui/BoxInput";
 import Avatar from "./ui/Avatar";
+import Header from "./components/Header";
 
 const screen = () => {
   const [image, setImage] = useState(null);
 
-  useEffect(() => {
-    Alert.alert("image", image)
-    console.log(image);
-  }, [image]);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
-        <Avatar
-          uri={image}
-          type="add"
-          imagePick={setImage}
-          // status={status}
-        />
+        <Header />
       </View>
     </SafeAreaView>
   );
