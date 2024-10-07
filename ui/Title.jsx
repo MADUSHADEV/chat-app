@@ -1,28 +1,28 @@
-import {StyleSheet, Text, View} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 // props.title => Title
 // props.size => Font size
 // props.color => Font color
 export function Title(props) {
-    return (
-        <View style={styles.titleView}>
-            <Text style={styles.titleText(props)}>{props.title}</Text>
-        </View>
-    );
-} 
+  return (
+    <View style={(styles.titleView, { ...props.style })}>
+      <Text style={styles.titleText(props)}>{props.title}</Text>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-    titleView: {
-        justifyContent:"center",
-        alignItems:"center",
-        padding:5,
-    },
+  titleView: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+  },
 
-    titleText: (props) => {
-        return {
-            fontSize: props.size || 25,
-            color:props.color || "#000E08",
-            fontWeight:"bold",
-        }   
-    },
+  titleText: (props) => {
+    return {
+      fontSize: props.size || 25,
+      color: props.color || "#000E08",
+      fontWeight: "bold",
+    };
+  },
 });

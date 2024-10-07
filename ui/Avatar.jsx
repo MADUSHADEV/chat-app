@@ -13,7 +13,7 @@ import * as ImagePicker from "expo-image-picker";
  *
  * @returns
  */
-const Avatar = ({ uri, status, imagePick, type = "none" }) => {
+const Avatar = ({ uri, style = {}, status, imagePick, type = "none" }) => {
   const selectImage = async () => {
     try {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -34,7 +34,7 @@ const Avatar = ({ uri, status, imagePick, type = "none" }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Image source={{ uri }} style={styles.imageBox} />
       <View
         style={[
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     padding: 3,
+    marginHorizontal: 3,
     borderRadius: 60,
     backgroundColor: THEME.colorLightGray,
   },

@@ -6,35 +6,41 @@ import LeftChat from "./ui/LeftChat";
 import RightChat from "./ui/RightChat";
 import MessageSendBox from "./components/MessageSendBox";
 import Chat from "./screens/Chat";
+import Home from "./screens/Home";
+import { Title } from "./ui/Title";
+import Avatar from "./ui/Avatar";
+import { Navigation } from "./components/Navigation";
 
 const screen = () => {
   return (
-    // <SafeAreaView style={styles.container}>
-    // <View style={styles.buttonDiv}>
-    <Chat />
-    // </View>
-    // </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.buttonDiv}>
+        <Navigation />
+      </View>
+    </SafeAreaView>
   );
 };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "black",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   text: {
-//     color: "black",
-//     fontSize: 20,
-//   },
-//   buttonDiv: {
-//     width: "100%",
-//     display: "flex",
-//     justifyContent: "space-between",
-//     flexDirection: "column",
-//     alignContent: "space-between",
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "white",
+  },
+  text: {
+    color: "black",
+    fontSize: 20,
+  },
+  buttonDiv: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    flexDirection: "column",
+    alignContent: "space-between",
+  },
+});
 
 export default screen;
