@@ -1,21 +1,18 @@
 import {StyleSheet, View} from "react-native";
 import {AuthButton} from "../ui/AuthButton";
 
-// props.image => Image sources[]
-// props.onPressEvent => On Press Event[]
-// props.size => size
-// props.columnGap => columnGap
 export function OAuthButtonGroup(props) {
     return (
         <View style={styles.oAuthButtonGroupView(props)}>
-            {props.image.map((image, index) => (
                 <AuthButton 
-                    key={index} 
-                    image={image} 
-                    onPressEvent={props.onPressEvent[index]}
-                    size={props.size}
+                    image={require('../assets/images/facebook-logo.png')} 
                 />
-            ))}
+                <AuthButton 
+                    image={require('../assets/images/google-logo.png')} 
+                />
+                <AuthButton 
+                    image={require('../assets/images/apple-logo.png')} 
+                />
         </View>
     );
 } 
