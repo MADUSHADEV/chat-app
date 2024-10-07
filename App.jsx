@@ -7,6 +7,7 @@ import { BUTTON } from "./constants/constants";
 import BoxInput from "./ui/BoxInput";
 import Avatar from "./ui/Avatar";
 import Header from "./components/Header";
+import ChatPreview from "./components/ChatPreview";
 
 const screen = () => {
   const [image, setImage] = useState(null);
@@ -14,7 +15,7 @@ const screen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
-        <Header />
+        <ChatPreview />
       </View>
     </SafeAreaView>
   );
@@ -22,10 +23,10 @@ const screen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    height: "100%",
     flex: 1,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
   },
   text: {
     color: "black",
