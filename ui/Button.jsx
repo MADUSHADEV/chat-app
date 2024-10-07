@@ -15,7 +15,7 @@ const CustomButton = ({ buttonName, event, backgroundColor }) => {
         style={[
           styles.textStyle, 
           backgroundColor != "#24786D"
-            ? { color: "000E08" }
+            ? { color: "#797C7B" }
             : { color: "white" },
         ]}
       >
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    width: "80%",
+    width: "90%",
   },
   textStyle: {
     fontSize: 20,
