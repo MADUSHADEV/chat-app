@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import {BackButton} from './ui/BackButton';
-import {Title} from './ui/Title';
-import LineInput from './ui/LineInput';
-import Button from './ui/Button';
-import {OAuthButtonGroup} from './components/OAuthButtonGroup';
+import {BackButton} from '../ui/BackButton';
+import {Title} from '../ui/Title';
+import LineInput from '../ui/LineInput';
+import Button from '../ui/Button';
+import {OAuthButtonGroup} from '../components/OAuthButtonGroup';
 
-export function Home() {
+export function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -16,11 +16,13 @@ export function Home() {
         <View style={styles.buttonView1}>
             <BackButton/>
         </View>
-        <Title title={"Log In to Chatbox"}/>
-        <Text style={styles.text1}>
-            Welcome back! Sign in using your social
-            account or email to continue us
-        </Text>
+        <View style={styles.textGroup}>
+          <Title title={"Log In to Chatbox"}/>
+          <Text style={styles.text1}>
+              Welcome back! Sign in using your social
+              account or email to continue us
+          </Text>
+        </View>
         <View style={styles.buttonGroup}>
             <OAuthButtonGroup/>
         </View>
@@ -32,7 +34,7 @@ export function Home() {
             <View style={styles.textGroupView3} />
         </View>
         <LineInput inputLabel={"Your email"} placeholder={"Type your email..."} onChange={setEmail}></LineInput>
-        <LineInput inputLabel={"Your password"} placeholder={"Type your password..."} secureTextEntry={true} onChange={setPassword}></LineInput>
+        <LineInput inputLabel={"Password"} placeholder={"Type Password..."} secureTextEntry={true} onChange={setPassword}></LineInput>
         <View style={styles.logInButtonGroup}>
             <Button buttonName={"Log In"} backgroundColor={"#F3F6F6"}/>
             <Text style={styles.text2}>Forgot Password?</Text>
@@ -44,8 +46,8 @@ export function Home() {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    rowGap:15,
-    paddingHorizontal:15,
+    rowGap:20,
+    paddingHorizontal:10,
     justifyContent:"center",
   },
   buttonGroup:{
@@ -91,5 +93,9 @@ const styles = StyleSheet.create({
   },
   text2:{
     color:"#24786D",
-  }
+  },
+  textGroup:{
+    flexDirection:"column",
+    rowGap:10,
+  },
 });
