@@ -19,7 +19,7 @@ const screen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
         <Avatar
-          uri={"https://picsum.photos/200/300"}
+          uri={image}
           type="add"
           imagePick={setImage}
           // status={status}
