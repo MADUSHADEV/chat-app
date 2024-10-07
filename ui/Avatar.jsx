@@ -1,6 +1,7 @@
-import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, Image, Pressable, StyleSheet, View } from "react-native";
 import { THEME } from "../constants/constants";
+import * as ImagePicker from "expo-image-picker";
 
 /**
  *
@@ -12,7 +13,26 @@ import { THEME } from "../constants/constants";
  *
  * @returns
  */
-const Avatar = ({ uri, status, type = "none" }) => {
+const Avatar = ({ uri, status, imagePick, type = "none" }) => {
+  const selectImage = async () => {
+    try {
+      const response = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+
+      if (!response.canceled) {
+        console.log(response.assets[0].uri);
+        imagePick(response.assets[0].uri);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Image select failed!");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image source={{ uri }} style={styles.imageBox} />
@@ -29,10 +49,12 @@ const Avatar = ({ uri, status, type = "none" }) => {
           type === "add" ? { display: "flex" } : { display: "none" },
         ]}
       >
-        <Image
-          style={styles.plus}
-          source={require("./../assets/icons/plus.png")}
-        />
+        <Pressable onPress={selectImage}>
+          <Image
+            style={styles.plus}
+            source={require("./../assets/icons/plus.png")}
+          />
+        </Pressable>
       </View>
     </View>
   );

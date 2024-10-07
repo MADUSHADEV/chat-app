@@ -8,22 +8,21 @@ import BoxInput from "./ui/BoxInput";
 import Avatar from "./ui/Avatar";
 
 const screen = () => {
-  const [status, setStatus] = useState("active");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
-    setInterval(() => {
-      const newStatus = Math.random() < 0.5 ? "offline" : "active";
-      setStatus(newStatus);
-    }, 1000);
-  }, []);
+    Alert.alert("image", image)
+    console.log(image);
+  }, [image]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
         <Avatar
           uri={"https://picsum.photos/200/300"}
-          type="status"
-          status={status}
+          type="add"
+          imagePick={setImage}
+          // status={status}
         />
       </View>
     </SafeAreaView>
