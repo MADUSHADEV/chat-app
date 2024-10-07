@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Button from "./ui/Button";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "./ui/Button";
 
 const screen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
-        <Button />
+        <CustomButton/>
       </View>
     </SafeAreaView>
   );
