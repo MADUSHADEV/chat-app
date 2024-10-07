@@ -2,12 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "./ui/Button";
+import { BUTTON } from "./constants/constants";
 
 const screen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
-        <CustomButton/>
+        <CustomButton buttonName={BUTTON.signIn} backgroundColor={"#24786D"} />
       </View>
     </SafeAreaView>
   );
@@ -16,7 +17,7 @@ const screen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "red",
+    backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
   },

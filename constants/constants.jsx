@@ -1,5 +1,5 @@
 export const BUTTON = {
-  signIn: "Sign In",
+  signIn: "Log in",
   signUp: "Sign Up",
 };
 export const SCREEN_NAMES = {
