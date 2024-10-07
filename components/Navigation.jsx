@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
 import Chat from "../screens/Chat";
 import Profile from "../screens/Profile";
+import Settings from "../screens/Settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,8 @@ export function Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
+        initialRouteName="Profile"
+        backBehavior="history"
         screenOptions={{
           tabBarStyle: styles.tabBar,
           tabBarShowIcon: { display: "none" },
@@ -68,8 +71,8 @@ export function Navigation() {
           }}
         />
         <Tab.Screen
-          name="Contacts"
-          component={Home}
+          name="Profile"
+          component={Profile}
           options={{
             tabBarIcon: () => {},
             tabBarLabel: ({ focused }) => (
@@ -86,14 +89,14 @@ export function Navigation() {
                     focused ? styles.navigationText1 : styles.navigationText2,
                   ]}
                 >
-                  Message
+                  Profile
                 </Text>
               </View>
             ),
           }}
         />
         <Tab.Screen
-          component={Profile}
+          component={Settings}
           name="Home"
           options={{
             tabBarIcon: () => {},
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
     objectFit: "cover",
     resizeMode: "cover",
   },
-  
+
   navigationIcon2: {
     color: "#797C7B",
     width: "100%",
