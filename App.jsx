@@ -1,18 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "./ui/Button";
 import LineInput from "./ui/LineInput";
 import { BUTTON } from "./constants/constants";
 import BoxInput from "./ui/BoxInput";
+import Avatar from "./ui/Avatar";
 
 const screen = () => {
-  const [test, setTest] = useState("test");
+  const [status, setStatus] = useState("active");
+
+  useEffect(() => {
+    setInterval(() => {
+      const newStatus = Math.random() < 0.5 ? "offline" : "active";
+      setStatus(newStatus);
+    }, 1000);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
-        <BoxInput />
+        <Avatar
+          uri={"https://picsum.photos/200/300"}
+          type="status"
+          status={status}
+        />
       </View>
     </SafeAreaView>
   );
@@ -32,8 +44,8 @@ const styles = StyleSheet.create({
   buttonDiv: {
     width: "100%",
     display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "column",
+    justifyContent: "center",
+    flexDirection: "row",
     alignContent: "space-between",
   },
 });
