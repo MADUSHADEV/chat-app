@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 13,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    width: "60%",
+    width: "80%",
   },
 });
 
