@@ -3,12 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "./ui/Button";
 import { BUTTON } from "./constants/constants";
+import BoxInput from "./ui/BoxInput";
 
 const screen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.buttonDiv}>
-        <CustomButton buttonName={BUTTON.signIn} backgroundColor={"#24786D"} />
+        {/* <CustomButton buttonName={BUTTON.signIn} backgroundColor={"#24786D"} /> */}
+        <BoxInput />
       </View>
     </SafeAreaView>
   );
