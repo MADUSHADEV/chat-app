@@ -2,8 +2,14 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { STYLES, THEME } from "../constants/constants";
 import { useEffect, useState } from "react";
 
-const LineInput = ({ inputLabel, placeholder, onChange, secureTextEntry=false }) => {
-  let [input, setInput] = useState("");
+const LineInput = ({
+  inputLabel,
+  value,
+  placeholder,
+  onChange,
+  secureTextEntry = false,
+}) => {
+  let [input, setInput] = useState(value);
 
   useEffect(() => {
     onChange(input);

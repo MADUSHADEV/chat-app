@@ -1,11 +1,17 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const CustomButton = ({ buttonName, event, backgroundColor }) => {
+const CustomButton = ({
+  buttonName,
+  customStyle = {},
+  event,
+  backgroundColor,
+}) => {
   return (
     <TouchableOpacity
       style={[
         styles.buttonStyle,
         { backgroundColor: backgroundColor || "#24786D" },
+        customStyle,
       ]}
       onPress={() => {
         event;
@@ -13,10 +19,11 @@ const CustomButton = ({ buttonName, event, backgroundColor }) => {
     >
       <Text
         style={[
-          styles.textStyle, 
+          styles.textStyle,
           backgroundColor != "#24786D"
             ? { color: "#797C7B" }
             : { color: "white" },
+          customStyle.text,
         ]}
       >
         {buttonName}
