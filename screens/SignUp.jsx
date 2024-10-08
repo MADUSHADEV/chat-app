@@ -7,8 +7,9 @@ import LineInput from '../ui/LineInput';
 import Button from '../ui/Button';
 
 export function SignUp() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [fname, setfName] = useState("");
+    const [lname, setlName] = useState("");
+    const [mobile, setMobile] = useState("");
     const [password, setPassword] = useState("");
     const [cPassword, setCPassword] = useState("");
   
@@ -24,13 +25,46 @@ export function SignUp() {
           </Text>
         </View>
         <View style={styles.inputGroup}>
-          <LineInput inputLabel={"Your name"} placeholder={"Type your name..."} onChange={setName}></LineInput>
-          <LineInput inputLabel={"Your email"} placeholder={"Type your email..."} onChange={setEmail}></LineInput>
+          <LineInput inputLabel={"Your first name"} placeholder={"Type your first name..."} onChange={setfName}></LineInput>
+          <LineInput inputLabel={"Your last name"} placeholder={"Type your last name..."} onChange={setlName}></LineInput>
+          <LineInput inputLabel={"Your email"} placeholder={"Type your email..."} onChange={setMobile}></LineInput>
           <LineInput inputLabel={"Password"} placeholder={"Type Password..."} secureTextEntry={true} onChange={setPassword}></LineInput>
           <LineInput inputLabel={"Confirm password"} placeholder={"Type Confirm password..."} secureTextEntry={true} onChange={setCPassword}></LineInput>
         </View>
         <View style={styles.buttonGroup}>
-          <Button buttonName={"Create an account"} backgroundColor={"#F3F6F6"}/>
+          <Button buttonName={"Create an account"} backgroundColor={"#F3F6F6"} onPress={async () => {
+            try {
+              let formData = new FormData();
+              formData.append("mobile", mobile);
+              formData.append("firstName", fname);
+              formData.append("lastName", lname);
+              formData.append("password", password);
+
+              let response = await fetch("http://192.168.140.189:8081/ReactChat/SignUp", {
+                method: "POST",
+                body: formData,
+                // No need to manually set Content-Type, it will be automatically set for FormData
+              });
+
+              if (response.ok) {
+                let json = await response.json();
+                if (json.success) {
+                  // User registration is successful
+                  // router.replace("/");
+                } else {
+                  // Handle error response from API
+                  Alert.alert("Error", json.message);
+                }
+              } else {
+                // Handle HTTP error response (like 4xx or 5xx)
+                Alert.alert("Error", `HTTP Error: ${response.status}`);
+              }
+            } catch (error) {
+              // Network or any other unexpected error
+              Alert.alert("Error", "Something went wrong. Please try again later.");
+            }
+          }}
+          />
         </View>
       </SafeAreaView> 
     );

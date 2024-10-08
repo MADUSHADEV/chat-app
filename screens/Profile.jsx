@@ -24,7 +24,8 @@ const Profile = () => {
 
       <View style={styles.profileImage}>
         <Avatar
-          uri="https://picsum.photos/200/300"
+          uri=""
+          letters="BB"
           type="none"
           style={{ width: 100, height: 100 }}
         />

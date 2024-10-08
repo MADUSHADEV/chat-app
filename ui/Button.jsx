@@ -13,9 +13,9 @@ const CustomButton = ({
         { backgroundColor: backgroundColor || "#24786D" },
         customStyle,
       ]}
-      onPress={() => {
-        event;
-      }}
+      onPress={
+        event
+      }
     >
       <Text
         style={[

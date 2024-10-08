@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Image, Pressable, StyleSheet, View } from "react-native";
+import { Alert, Text, Image, Pressable, StyleSheet, View } from "react-native";
 import { THEME } from "../constants/constants";
 import * as ImagePicker from "expo-image-picker";
 
@@ -13,7 +13,14 @@ import * as ImagePicker from "expo-image-picker";
  *
  * @returns
  */
-const Avatar = ({ uri, style = {}, status, imagePick, type = "none" }) => {
+const Avatar = ({
+  uri,
+  style = {},
+  status,
+  imagePick,
+  type = "none",
+  letters = "NA",
+}) => {
   const selectImage = async () => {
     try {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -35,7 +42,11 @@ const Avatar = ({ uri, style = {}, status, imagePick, type = "none" }) => {
 
   return (
     <View style={[styles.container, style]}>
-      <Image source={{ uri }} style={styles.imageBox} />
+      {uri ? (
+        <Image source={{ uri }} style={styles.imageBox} />
+      ) : (
+        <Text style={styles.imageBox}>{letters}</Text>
+      )}
       <View
         style={[
           styles.statusDot,
@@ -74,6 +85,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     width: "100%",
     height: "100%",
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
 
   statusDot: {
