@@ -13,7 +13,7 @@ export function Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Profile"
+        initialRouteName="Home"
         backBehavior="history"
         screenOptions={{
           tabBarStyle: styles.tabBar,
@@ -21,7 +21,7 @@ export function Navigation() {
         }}
       >
         <Tab.Screen
-          name="Message"
+          name="Home"
           component={Home}
           options={{
             tabBarIcon: () => {},
@@ -97,7 +97,7 @@ export function Navigation() {
         />
         <Tab.Screen
           component={Settings}
-          name="Home"
+          name="Settings"
           options={{
             tabBarIcon: () => {},
             tabBarLabel: ({ focused }) => (

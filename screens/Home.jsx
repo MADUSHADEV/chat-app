@@ -6,13 +6,51 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import Avatar from "../ui/Avatar";
 import { Title } from "../ui/Title";
-import { THEME } from "../constants/constants";
+import { CONFIG, THEME } from "../constants/constants";
 import ChatPreview from "../components/ChatPreview";
 import { Navigation } from "../components/Navigation";
 import TestData from "../constants/TestData";
 import { Ionicons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import DateFormatter from "../utils/DateFormatter";
 
 const Home = () => {
+  const [profile, setProfile] = useState("");
+  const [chats, setChats] = useState([]);
+
+  const loadName = async () => {
+    const res = await fetch(`${CONFIG.url}/GetName?mobile=078078078`);
+    if (!res.ok) {
+      return null;
+    }
+    const data = await res.json();
+    return data.letters ? data.letters : "";
+  };
+
+  const loadChats = async () => {
+    const res = await fetch(`${CONFIG.url}/LoadHomeData?id=1`);
+
+    if (!res.ok) {
+      return null;
+    }
+    const data = await res.json();
+    const results = data.success ? data.otherUserList : [];
+    return results;
+  };
+
+  useEffect(() => {
+    const fetchProfileAndChats = async () => {
+      const profile = await loadName();
+      const chats = await loadChats();
+      setProfile(profile);
+      setChats(chats);
+    };
+
+    setInterval(() => {
+      fetchProfileAndChats();
+    }, 2000);
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -23,33 +61,40 @@ const Home = () => {
           color="#fff"
         />
         <Text style={styles.title}>Home</Text>
-        <Avatar
-          uri="https://picsum.photos/200/300"
-          type="status"
-          status="active"
-        />
+        <Avatar letters={profile} type="status" status="active" />
       </View>
       <View style={styles.profiles}>
         <FlatList
           style={{ padding: 10 }}
           horizontal={true}
-          data={TestData.filter((item) => item.status === "active")}
+          data={chats.filter((item) => item.other_user_status === 1)}
           renderItem={({ item }) => (
-            <Avatar status={item.status} type="status" uri={item.avatarUri} />
+            <Avatar
+              status={"active"}
+              type="status"
+              uri={item.avatarUri}
+              letters={item.other_user_avatar_letters.toUpperCase()}
+            />
           )}
         />
       </View>
       <FlatList
         style={styles.scrollView}
-        data={TestData}
+        data={chats}
         renderItem={({ item, index }) => (
           <ChatPreview
             key={index}
-            avatar={{ uri: item.avatarUri, status: item.status }}
+            avatar={{
+              uri: item.avatar_image_found ? item.uri : null,
+              status: item.other_user_status == 1 ? "active" : "offline",
+              letters: !item.avatar_image_found
+                ? item.other_user_avatar_letters.toUpperCase()
+                : "",
+            }}
             message={item.message}
             unread={item.unread}
-            username={item.username}
-            lastseen={item.lastseen}
+            username={item.other_user_name}
+            lastseen={DateFormatter(item.dateTime)}
           />
         )}
       />
