@@ -46,7 +46,7 @@ const Chat = ({ route }) => {
     const newMessage = {
       from_user_id: currentUser?.id, // Current logged-in user ID
       to_user_id: from_user_id, // ID of the chat user
-      message: messageInput,
+      message: messageInput, // Message content
     };
 
     try {
