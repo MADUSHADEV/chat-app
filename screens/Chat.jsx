@@ -1,46 +1,108 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import MessageSendBox from "../components/MessageSendBox";
 import LeftChat from "../ui/LeftChat";
 import RightChat from "../ui/RightChat";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import Avatar from "../ui/Avatar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Chat = () => {
+const Chat = ({ route }) => {
+  const { from_user_id } = route.params; // Get the user ID from props
+  const [messages, setMessages] = useState([]); // State to store chat messages
+  const [messageInput, setMessageInput] = useState(""); // State for the message input
+  const [currentUser, setCurrentUser] = useState(null); // State for the logged-in user
+
+  // Function to load chat messages
+  const loadChatMessages = async () => {
+    try {
+      const response = await fetch(`https://fakeapi.com/chats/${from_user_id}`);
+      const data = await response.json();
+      setMessages(data.messages); // Update messages with the fetched data
+    } catch (error) {
+      console.error("Failed to load messages:", error);
+    }
+  };
+
+  // Load chat messages and user data on component mount
+  useEffect(() => {
+    const loadUserData = async () => {
+      const user = await AsyncStorage.getItem("User");
+      setCurrentUser(JSON.parse(user));
+    };
+
+    loadUserData();
+    loadChatMessages();
+  }, []);
+
+  // Function to send a new chat message
+  const sendMessage = async () => {
+    if (messageInput.trim() === "") {
+      Alert.alert("Message cannot be empty");
+      return;
+    }
+
+    const newMessage = {
+      from_user_id: currentUser?.id, // Current logged-in user ID
+      to_user_id: from_user_id, // ID of the chat user
+      message: messageInput,
+    };
+
+    try {
+      const response = await fetch(`https://fakeapi.com/chats/send`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMessage),
+      });
+
+      const data = await response.json();
+      setMessages([...messages, data.message]); // Add the new message to the chat list
+      setMessageInput(""); // Clear input after sending the message
+    } catch (error) {
+      console.error("Failed to send message:", error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.ChatPageContainer}>
       <Header />
       <ScrollView style={styles.centerChatBox}>
-        {/* left chat */}
-        <View style={styles.leftChatView}>
-          {/* main box */}
-          <View style={styles.mainBox}>
-            {/* avatar */}
-            <View style={styles.avatarView}>
-              <Avatar uri="https://picsum.photos/200/300" />
+        {messages.map((msg, index) =>
+          msg.from_user_id === currentUser?.id ? (
+            <View style={styles.RightChatView} key={index}>
+              <RightChat message={msg.message} />
             </View>
-            {/* chat box */}
-            <View style={styles.chatBox}>
-              {/* user name */}
-              <Text style={styles.userName}>Jhon Abraham</Text>
-              {/* messages goes here*/}
-              <View style={styles.messages}>
-                <LeftChat message="Lorem Ipsum is simply dummy text of the printing and typesetting industry." />
+          ) : (
+            <View style={styles.leftChatView} key={index}>
+              <View style={styles.mainBox}>
+                <View style={styles.avatarView}>
+                  <Avatar uri="https://picsum.photos/200/300" />
+                </View>
+                <View style={styles.chatBox}>
+                  <Text style={styles.userName}>User Name</Text>
+                  <View style={styles.messages}>
+                    <LeftChat message={msg.message} />
+                  </View>
+                </View>
               </View>
-              {/* messages goes here*/}
             </View>
-          </View>
-        </View>
-        {/* right side chat */}
-        <View style={styles.RightChatView}>
-          <RightChat message="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s" />
-        </View>
-        {/* right side chat */}
+          )
+        )}
       </ScrollView>
-      <MessageSendBox />
+
+      {/* Message send box */}
+      <MessageSendBox
+        messageInput={messageInput}
+        onChangeText={(text) => setMessageInput(text)}
+        onSend={sendMessage} // Pass sendMessage function to handle sending
+      />
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   ChatPageContainer: {
     flex: 1,
