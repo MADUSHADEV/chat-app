@@ -14,9 +14,10 @@ import { Navigation } from "./components/Navigation";
 const screen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.buttonDiv}>
+      {/* <View style={styles.buttonDiv}>
         <Navigation />
-      </View>
+      </View> */}
+      <Chat />
     </SafeAreaView>
   );
 };
