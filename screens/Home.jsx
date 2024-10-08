@@ -13,13 +13,22 @@ import TestData from "../constants/TestData";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import DateFormatter from "../utils/DateFormatter";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
   const [profile, setProfile] = useState("");
   const [chats, setChats] = useState([]);
 
+  const navigation = useNavigation(); // Access navigation
+  
   const loadName = async () => {
-    const res = await fetch(`${CONFIG.url}/GetName?mobile=078078078`);
+      console.log(await loadUser().then((data) => data.mobile));
+      const res = await fetch(
+      `${CONFIG.url}/GetName?mobile=${
+        (await loadUser().then((data) => data.mobile)) ?? "0710902997"
+      }`
+    );
     if (!res.ok) {
       return null;
     }
@@ -28,7 +37,12 @@ const Home = () => {
   };
 
   const loadChats = async () => {
-    const res = await fetch(`${CONFIG.url}/LoadHomeData?id=1`);
+    console.log(await loadUser().then((data) => data.id));
+    const res = await fetch(
+      `${CONFIG.url}/LoadHomeData?id=${
+        (await loadUser().then((data) => data.id)) ?? 1
+      }`
+    );
 
     if (!res.ok) {
       return null;
@@ -36,6 +50,18 @@ const Home = () => {
     const data = await res.json();
     const results = data.success ? data.otherUserList : [];
     return results;
+  };
+
+  const loadUser = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem("user");
+      if (jsonValue !== null) {
+        const jsonObject = await JSON.parse(jsonValue);
+        return jsonObject;
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -46,9 +72,13 @@ const Home = () => {
       setChats(chats);
     };
 
-    setInterval(() => {
+    fetchProfileAndChats();
+
+    const intervalId = setInterval(() => {
       fetchProfileAndChats();
-    }, 2000);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   return (

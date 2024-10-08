@@ -12,14 +12,11 @@ const ChatPreview = ({
   unread = "2",
   avatar = {},
   style = {},
+  user = {},
 }) => {
   return (
     <TouchableOpacity style={[styles.container, style]}>
-      <Pressable
-        onPress={() => {
-          Alert.alert("Profile");
-        }}
-      >
+      <Pressable onPress={() => {}}>
         <Avatar
           uri={avatar.uri ?? null}
           letters={avatar.letters}
@@ -54,7 +51,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     marginVertical: 4,
     borderRadius: 10,
-    backgroundColor: THEME.colorLight
+    backgroundColor: THEME.colorLight,
   },
 
   boxContainer: {
