@@ -10,15 +10,25 @@ import Home from "./screens/Home";
 import { Title } from "./ui/Title";
 import Avatar from "./ui/Avatar";
 import { Navigation } from "./components/Navigation";
+import { createStackNavigator } from "@react-navigation/stack";
+import { SignIn } from "./screens/SignIn";
+import { NavigationContainer } from "@react-navigation/native";
+
+const Stack = createStackNavigator();
 
 const screen = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <View style={styles.buttonDiv}>
-        <Navigation />
-      </View> */}
-      <Chat />
-    </SafeAreaView>
+    <NavigationContainer style={styles.container}>
+      <Stack.Navigator
+        initialRouteName="SignIn"
+        screenOptions={{
+          headerShown: false, // Hide the header if you don't want it on SignIn or Home screens
+        }}
+      >
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="App" component={Navigation} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 

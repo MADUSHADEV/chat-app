@@ -11,117 +11,115 @@ const Tab = createBottomTabNavigator();
 
 export function Navigation() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        backBehavior="history"
-        screenOptions={{
-          tabBarStyle: styles.tabBar,
-          tabBarShowIcon: { display: "none" },
+    <Tab.Navigator
+      initialRouteName="Home"
+      backBehavior="history"
+      screenOptions={{
+        tabBarStyle: styles.tabBar,
+        tabBarShowIcon: { display: "none" },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: () => {},
+          tabBarLabel: ({ focused }) => (
+            <View style={styles.navigationView2}>
+              <AntDesign
+                name={"message1"}
+                size={30}
+                style={[
+                  focused ? styles.navigationIcon1 : styles.navigationIcon2,
+                ]}
+              />
+              <Text
+                style={[
+                  focused ? styles.navigationText1 : styles.navigationText2,
+                ]}
+              >
+                Message
+              </Text>
+            </View>
+          ),
         }}
-      >
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: () => {},
-            tabBarLabel: ({ focused }) => (
-              <View style={styles.navigationView2}>
-                <AntDesign
-                  name={"message1"}
-                  size={30}
-                  style={[
-                    focused ? styles.navigationIcon1 : styles.navigationIcon2,
-                  ]}
-                />
-                <Text
-                  style={[
-                    focused ? styles.navigationText1 : styles.navigationText2,
-                  ]}
-                >
-                  Message
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Calls"
-          component={Chat}
-          options={{
-            tabBarIcon: () => {},
-            tabBarLabel: ({ focused }) => (
-              <View style={styles.navigationView2}>
-                <Feather
-                  name={"phone-call"}
-                  size={30}
-                  style={[
-                    focused ? styles.navigationIcon1 : styles.navigationIcon2,
-                  ]}
-                />
-                <Text
-                  style={[
-                    focused ? styles.navigationText1 : styles.navigationText2,
-                  ]}
-                >
-                  Message
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarIcon: () => {},
-            tabBarLabel: ({ focused }) => (
-              <View style={styles.navigationView2}>
-                <FontAwesome6
-                  name={"circle-user"}
-                  size={30}
-                  style={[
-                    focused ? styles.navigationIcon1 : styles.navigationIcon2,
-                  ]}
-                />
-                <Text
-                  style={[
-                    focused ? styles.navigationText1 : styles.navigationText2,
-                  ]}
-                >
-                  Profile
-                </Text>
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          component={Settings}
-          name="Settings"
-          options={{
-            tabBarIcon: () => {},
-            tabBarLabel: ({ focused }) => (
-              <View style={styles.navigationView2}>
-                <Ionicons
-                  name={"settings-outline"}
-                  style={[
-                    focused ? styles.navigationIcon1 : styles.navigationIcon2,
-                  ]}
-                  size={30}
-                />
-                <Text
-                  style={[
-                    focused ? styles.navigationText1 : styles.navigationText2,
-                  ]}
-                >
-                  Message
-                </Text>
-              </View>
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+      />
+      <Tab.Screen
+        name="Calls"
+        component={Chat}
+        options={{
+          tabBarIcon: () => {},
+          tabBarLabel: ({ focused }) => (
+            <View style={styles.navigationView2}>
+              <Feather
+                name={"phone-call"}
+                size={30}
+                style={[
+                  focused ? styles.navigationIcon1 : styles.navigationIcon2,
+                ]}
+              />
+              <Text
+                style={[
+                  focused ? styles.navigationText1 : styles.navigationText2,
+                ]}
+              >
+                Message
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: () => {},
+          tabBarLabel: ({ focused }) => (
+            <View style={styles.navigationView2}>
+              <FontAwesome6
+                name={"circle-user"}
+                size={30}
+                style={[
+                  focused ? styles.navigationIcon1 : styles.navigationIcon2,
+                ]}
+              />
+              <Text
+                style={[
+                  focused ? styles.navigationText1 : styles.navigationText2,
+                ]}
+              >
+                Profile
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        component={Settings}
+        name="Settings"
+        options={{
+          tabBarIcon: () => {},
+          tabBarLabel: ({ focused }) => (
+            <View style={styles.navigationView2}>
+              <Ionicons
+                name={"settings-outline"}
+                style={[
+                  focused ? styles.navigationIcon1 : styles.navigationIcon2,
+                ]}
+                size={30}
+              />
+              <Text
+                style={[
+                  focused ? styles.navigationText1 : styles.navigationText2,
+                ]}
+              >
+                Message
+              </Text>
+            </View>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 

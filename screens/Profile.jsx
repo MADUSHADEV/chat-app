@@ -5,8 +5,13 @@ import Avatar from "../ui/Avatar";
 import LineInput from "../ui/LineInput";
 import { useState } from "react";
 import CustomButton from "../ui/Button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { useNavigation } from "@react-navigation/native";
 
 const Profile = () => {
+  const navigation = useNavigation();
+
   const [dispalyName, setDisplayName] = useState("");
   const [email, setEmail] = useState("myname@gmail.com");
   const [mobile, setMobile] = useState("78585655");
@@ -26,7 +31,7 @@ const Profile = () => {
         <Avatar
           uri=""
           letters="BB"
-          type="none"
+          type="add"
           style={{ width: 100, height: 100 }}
         />
         <Text style={styles.userName}>Mata Hodatam Track 💦</Text>
@@ -56,6 +61,20 @@ const Profile = () => {
         <CustomButton
           customStyle={{ width: "100%", text: { color: "white" } }}
           buttonName={"Save"}
+        />
+
+        <CustomButton
+          event={() => {
+            AsyncStorage.clear();
+            navigation.replace("SignIn");
+          }}
+          customStyle={{
+            width: "100%",
+            text: { color: "white" },
+            marginTop: 10,
+          }}
+          buttonName={"Log Out"}
+          backgroundColor={"red"}
         />
       </View>
     </ScrollView>

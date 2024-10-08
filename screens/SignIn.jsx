@@ -7,17 +7,21 @@ import {Title} from '../ui/Title';
 import LineInput from '../ui/LineInput';
 import Button from '../ui/Button';
 import {OAuthButtonGroup} from '../components/OAuthButtonGroup';
+import { CONFIG } from "../constants/constants";
+import { useNavigation } from "@react-navigation/native";
 
 export function SignIn() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigation = useNavigation();  // Access navigation
 
   useEffect(() => {
     const loadUser = async () => {
       try {
         const jsonValue = await AsyncStorage.getItem("user");
         if (jsonValue !== null) {
-          // router.replace("/home");
+          navigation.replace("App");
         }
       } catch (e) {
         console.error(e);
@@ -56,7 +60,7 @@ export function SignIn() {
             event={async () => {
               try {
                 let response = await fetch(
-                  "http://192.168.140.189:8081/ReactChat/SignIn",
+                  `${CONFIG.url}/SignIn`,
                   {
                     method: "POST",
                     body: JSON.stringify({
@@ -75,6 +79,7 @@ export function SignIn() {
                     try {
                       await AsyncStorage.setItem("user", JSON.stringify(json.user));
                       Alert.alert("Success", "You have successfully signed in!");
+                      navigation.replace("App")
                     } catch (e) {
                       Alert.alert("Error", "Unable to store user information.");
                     }
@@ -82,7 +87,7 @@ export function SignIn() {
                     Alert.alert("Error", json.message || "Sign-in failed. Please try again.");
                   }
                 } else {
-                  Alert.alert("Error", `HTTP Error: ${response.status}`);
+                  Alert.alert("Error", `Sign-in failed. Please try again.`);
                 }
               } catch (error) {
                 Alert.alert("Error", "Network error. Please check your connection.");
