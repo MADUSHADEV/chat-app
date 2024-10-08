@@ -1,3 +1,7 @@
+export const CONFIG = {
+  url: "http://192.168.1.2:8080/ReactChat",
+};
+
 export const BUTTON = {
   signIn: "Log in",
   signUp: "Create an account",

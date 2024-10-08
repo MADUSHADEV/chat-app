@@ -21,7 +21,8 @@ const ChatPreview = ({
         }}
       >
         <Avatar
-          uri={avatar.uri ?? "https://picsum.photos/200/300"}
+          uri={avatar.uri ?? null}
+          letters={avatar.letters}
           type={avatar.type ?? "status"}
           status={avatar.status ?? "offline"}
         />
