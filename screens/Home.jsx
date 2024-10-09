@@ -19,6 +19,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Home = () => {
   const [profile, setProfile] = useState("");
   const [chats, setChats] = useState([]);
+  const [userAvatar, setUserAvatar] = useState(null);
 
   const navigation = useNavigation(); // Access navigation
 
@@ -63,6 +64,19 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      const userData = await loadUser();
+      if (userData) {
+        if (userData.uri) {
+          setUserAvatar(userData.uri);
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     const fetchProfileAndChats = async () => {
       const profile = await loadName();
       const chats = await loadChats();
@@ -78,6 +92,7 @@ const Home = () => {
 
     return () => clearInterval(intervalId);
   }, []);
+  // console.log(chats);
 
   return (
     <View style={styles.container}>
@@ -89,7 +104,12 @@ const Home = () => {
           color="#fff"
         />
         <Text style={styles.title}>Home</Text>
-        <Avatar letters={profile} type="status" status="active" />
+        <Avatar
+          letters={profile}
+          type="status"
+          status="active"
+          uri={userAvatar}
+        />
       </View>
       <View style={styles.profiles}>
         <FlatList
@@ -100,8 +120,12 @@ const Home = () => {
             <Avatar
               status={"active"}
               type="status"
-              uri={item.avatarUri}
-              letters={item.other_user_avatar_letters.toUpperCase()}
+              uri={item.avatar_image_found ? item.uri : null}
+              letters={
+                !item.avatar_image_found
+                  ? item.other_user_avatar_letters.toUpperCase()
+                  : ""
+              }
             />
           )}
         />

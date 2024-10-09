@@ -66,11 +66,8 @@ export function SignUp() {
                 body: formData,
                 // No need to manually set Content-Type, it will be automatically set for FormData
               });
-              console.log(response);
-
               if (response.ok) {
                 let json = await response.json();
-                console.log(json);
                 if (json.success) {
                   // User registration is successful
                   await Alert.alert("Success", json.message);

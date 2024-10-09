@@ -11,6 +11,11 @@ const LineInput = ({
 }) => {
   let [input, setInput] = useState(value);
 
+  // Sync input with value prop when the parent component changes it
+  useEffect(() => {
+    setInput(value);
+  }, [value]);
+  
   useEffect(() => {
     onChange(input);
   }, [input]);
