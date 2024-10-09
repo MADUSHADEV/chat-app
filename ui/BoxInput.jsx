@@ -1,11 +1,13 @@
 import { Image, StyleSheet, TextInput, View } from "react-native";
 
-const BoxInput = () => {
+const BoxInput = ({ onChangeText, value = "", placeholder = "Write your message" }) => {
   return (
     <View style={styles.containerInput}>
       <TextInput
+      onChangeText={onChangeText}
         style={styles.inputStyle}
-        placeholder="Write your message"
+        placeholder={placeholder}
+        value={value}
       />
       <Image
         source={require("../assets/icons/Vector.png")}

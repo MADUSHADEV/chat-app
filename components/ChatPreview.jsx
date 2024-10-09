@@ -12,11 +12,11 @@ const ChatPreview = ({
   unread = "2",
   avatar = {},
   style = {},
-  user = {},
+  onPress,
 }) => {
   return (
-    <TouchableOpacity style={[styles.container, style]}>
-      <Pressable onPress={() => {}}>
+    <TouchableOpacity style={[styles.container, style]}  onPress={onPress}>
+      <Pressable>
         <Avatar
           uri={avatar.uri ?? null}
           letters={avatar.letters}

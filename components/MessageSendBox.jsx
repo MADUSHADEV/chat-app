@@ -1,16 +1,13 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import BoxInput from "../ui/BoxInput";
 
-const MessageSendBox = () => {
+const MessageSendBox = ({ deafaultText, onChangeText, onSend }) => {
   return (
     <View style={styles.messageBoxContainer}>
       <View style={styles.MessageSendBoxView}>
-        <BoxInput />
+        <BoxInput value={deafaultText} onChangeText={onChangeText} />
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => console.log("Log in pressed")}
-      >
+      <TouchableOpacity style={styles.button} onPress={onSend}>
         <Image
           source={require("../assets/icons/SendButtonIcon.png")}
           style={styles.IconWrapper}

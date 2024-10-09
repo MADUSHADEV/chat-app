@@ -26,6 +26,7 @@ const screen = () => {
         }}
       >
         <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="App" component={Navigation} />
       </Stack.Navigator>
     </NavigationContainer>

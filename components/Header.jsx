@@ -3,22 +3,22 @@ import React from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import Avatar from "../ui/Avatar";
 import { THEME } from "../constants/constants";
+import { useNavigation } from "@react-navigation/native";
 
 const Header = ({
   username = "User",
   image,
   lastSeen = "Last seen a long time ago",
   avatar = {},
-  navigation,
 }) => {
+  const navigation = useNavigation(); // Access navigation
+
   return (
     <View style={styles.container}>
       <Pressable
         style={styles.back}
         onPress={() => {
           navigation.goBack();
-          console.log("back");
-          Alert.alert("<= Back");
         }}
       >
         <Ionicons

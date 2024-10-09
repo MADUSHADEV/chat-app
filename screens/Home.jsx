@@ -21,13 +21,13 @@ const Home = () => {
   const [chats, setChats] = useState([]);
 
   const navigation = useNavigation(); // Access navigation
-  
+
   const loadName = async () => {
-      console.log(await loadUser().then((data) => data.mobile));
-      const res = await fetch(
-      `${CONFIG.url}/GetName?mobile=${
-        (await loadUser().then((data) => data.mobile)) ?? "0710902997"
-      }`
+
+    const res = await fetch(
+      `${CONFIG.url}/GetName?mobile=${await loadUser().then(
+        (data) => data.mobile
+      )}`
     );
     if (!res.ok) {
       return null;
@@ -37,11 +37,10 @@ const Home = () => {
   };
 
   const loadChats = async () => {
-    console.log(await loadUser().then((data) => data.id));
     const res = await fetch(
-      `${CONFIG.url}/LoadHomeData?id=${
-        (await loadUser().then((data) => data.id)) ?? 1
-      }`
+      `${CONFIG.url}/LoadHomeData?id=${await loadUser().then(
+        (data) => data.id
+      )}`
     );
 
     if (!res.ok) {
@@ -113,6 +112,9 @@ const Home = () => {
         data={chats}
         renderItem={({ item, index }) => (
           <ChatPreview
+            onPress={() =>
+              navigation.navigate("Chat", { from_user_id: item.other_user_id })
+            }
             key={index}
             avatar={{
               uri: item.avatar_image_found ? item.uri : null,
