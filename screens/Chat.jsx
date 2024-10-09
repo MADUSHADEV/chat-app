@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -18,7 +18,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CONFIG } from "../constants/constants";
 
 const Chat = ({ route }) => {
-  const { from_user_id } = route.params; // Get the user ID from props
+  const scrollViewRef = useRef(null);
+
+  const { from_user_id, username, lastseen, status } = route.params; // Get the user ID from props
   const [messages, setMessages] = useState([]); // State to store chat messages
   const [messageInput, setMessageInput] = useState(); // State for the message input
   const [currentUser, setCurrentUser] = useState(null); // State for the logged-in user
@@ -33,6 +35,10 @@ const Chat = ({ route }) => {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    scrollViewRef.current?.scrollToEnd({ animated: true });
+  }, [messageInput]);
 
   // Function to load chat messages
   const loadChatMessages = async () => {
@@ -95,8 +101,8 @@ const Chat = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.ChatPageContainer}>
-      <Header />
-      <ScrollView style={styles.centerChatBox}>
+      <Header lastSeen={lastseen} username={username} avatar={{ status }} />
+      <ScrollView style={styles.centerChatBox} ref={scrollViewRef}>
         {messages.map((msg, index) =>
           msg.side === "right" ? (
             <View style={styles.RightChatView} key={index}>

@@ -23,7 +23,6 @@ const Home = () => {
   const navigation = useNavigation(); // Access navigation
 
   const loadName = async () => {
-
     const res = await fetch(
       `${CONFIG.url}/GetName?mobile=${await loadUser().then(
         (data) => data.mobile
@@ -113,7 +112,12 @@ const Home = () => {
         renderItem={({ item, index }) => (
           <ChatPreview
             onPress={() =>
-              navigation.navigate("Chat", { from_user_id: item.other_user_id })
+              navigation.navigate("Chat", {
+                from_user_id: item.other_user_id,
+                username: item.other_user_name,
+                lastseen: DateFormatter(item.dateTime),
+                status: item.other_user_status == 1 ? "active" : "offline",
+              })
             }
             key={index}
             avatar={{
