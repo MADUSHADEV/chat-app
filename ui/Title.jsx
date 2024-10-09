@@ -13,9 +13,11 @@ export function Title(props) {
 
 const styles = StyleSheet.create({
   titleView: {
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
+    
   },
 
   titleText: (props) => {
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
       fontSize: props.size || 25,
       color: props.color || "#000E08",
       fontWeight: "bold",
+      paddingStart: "20%",
     };
   },
 });

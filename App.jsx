@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import BoxInput from "./ui/BoxInput";
-import LeftChat from "./ui/LeftChat";
-import RightChat from "./ui/RightChat";
-import MessageSendBox from "./components/MessageSendBox";
 import Chat from "./screens/Chat";
-import Home from "./screens/Home";
-import { Title } from "./ui/Title";
-import Avatar from "./ui/Avatar";
 import { Navigation } from "./components/Navigation";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SignIn } from "./screens/SignIn";
 import { NavigationContainer } from "@react-navigation/native";
+import { SignUp } from "./screens/SignUp";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +19,7 @@ const screen = () => {
         }}
       >
         <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="App" component={Navigation} />
       </Stack.Navigator>
